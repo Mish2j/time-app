@@ -6,7 +6,7 @@ import Button from "../../UI/Button";
 import styles from "./WcForm.module.css";
 
 const WcForm = (props) => {
-  const API_URL = "http://worldtimeapi.org/api/timezone";
+  const API_URL = "https://worldtimeapi.org/api/timezone";
   const enteredCityRef = useRef();
 
   const getJSON = async (url) => {
