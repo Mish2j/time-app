@@ -1,4 +1,5 @@
 {
+  "homepage": "https://mish2j.github.io/time-app/",
   "name": "time-app",
   "version": "0.1.0",
   "private": true,
@@ -18,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "push-gh-pages": "push-dir --dir=build --branch=gh-pages --cleanup --verbose"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -37,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
