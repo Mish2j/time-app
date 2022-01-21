@@ -1,0 +1,9 @@
+.ec__container {
+  padding: 1rem;
+  text-align: center;
+}
+
+.ec__text {
+  color: var(--color-text-primary);
+  font-size: 1.8rem;
+}

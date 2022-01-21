@@ -1,0 +1,16 @@
+.btn {
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.btn:active {
+  color: var(--color-text-secondary);
+}
+
+.btn:active > i {
+  color: var(--color-text-secondary);
+}
+
+.btn i {
+  font-size: 1.8rem;
+}

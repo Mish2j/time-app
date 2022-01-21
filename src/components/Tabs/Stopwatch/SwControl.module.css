@@ -1,0 +1,15 @@
+.stopwatch__control {
+  /* width: 80%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 2rem;
+}
+
+.stopwatch__control button {
+  background-color: var(--color-black-dark);
+  border-radius: 3rem;
+  padding: 1rem 1.6rem;
+  min-width: 10rem;
+}

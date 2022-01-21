@@ -1,0 +1,35 @@
+.dataList {
+  margin-right: -1rem;
+  padding-right: 1rem;
+  overflow-y: scroll;
+  max-height: 14rem;
+}
+
+.dataList::-webkit-scrollbar {
+  width: 0.2rem;
+  margin-left: 5rem;
+}
+
+.dataList::-webkit-scrollbar-track {
+  border-radius: 3rem;
+}
+
+.dataList::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-secondary);
+  border-radius: 3rem;
+}
+
+.dataList li {
+  font-size: 1.8rem;
+
+  background-color: var(--color-black-dark);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

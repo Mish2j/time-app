@@ -1,0 +1,24 @@
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 95vh 5vh;
+
+  grid-template-areas:
+    "sidebar main"
+    "footer  ...";
+}
+
+@media only screen and (max-width: 56.25em) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 9rem calc(100vh - 9rem - 9rem) 9rem;
+
+    grid-template-areas:
+      "sidebar"
+      "main"
+      "footer";
+  }
+}

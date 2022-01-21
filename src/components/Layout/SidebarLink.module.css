@@ -1,0 +1,39 @@
+.sidebar__link {
+  position: relative;
+  padding: 1.2rem 1.8rem;
+  margin: 1rem 0;
+  cursor: pointer;
+
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 56.25em) {
+  .sidebar__link {
+    min-width: 17rem;
+  }
+}
+
+.sidebar__link:hover {
+  background-color: var(--color-black-dark);
+  border-radius: 3rem;
+}
+
+.active__link {
+  color: var(--color-text-secondary);
+}
+
+.active__link::before {
+  content: "";
+  position: absolute;
+  top: 47%;
+  left: -3rem;
+
+  width: 2.5rem;
+  height: 0.2rem;
+  background-color: var(--color-text-secondary);
+}
+
+.sidebar__link i {
+  padding-right: 1.5rem;
+}

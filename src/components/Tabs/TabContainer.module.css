@@ -1,0 +1,18 @@
+.container {
+  width: 55rem;
+  min-height: 30rem;
+  padding: 4rem 5.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-black-light);
+  display: flex;
+  align-items: center;
+
+  position: relative;
+}
+
+@media only screen and(max-width: 31.25em) {
+  .container {
+    width: 100%;
+    border-radius: 0;
+  }
+}

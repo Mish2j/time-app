@@ -1,0 +1,33 @@
+.footer {
+  grid-area: footer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1.5rem;
+  font-size: 1.6rem;
+  background-color: var(--color-black-light);
+}
+
+.footer__social {
+  font-size: 2rem;
+}
+
+@media only screen and (max-width: 56.25em) {
+  .footer__social {
+    margin-left: 2rem;
+  }
+}
+
+.footer__social a {
+  color: var(--color-text-primary);
+}
+
+.footer__social a:hover {
+  color: var(--color-text-secondary);
+}
+
+.footer__social a + a {
+  margin-left: 1rem;
+}

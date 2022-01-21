@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+
+import Container from "./components/UI/Container";
+
+import Main from "./components/Layout/Main";
+import Sidebar from "./components/Layout/Sidebar";
+import Footer from "./components/Layout/Footer";
 
 function App() {
+  const [activeTabName, setActiveTabName] = useState("LocalTime");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Sidebar
+        onTabContentChange={(tabContent) => setActiveTabName(tabContent)}
+      />
+      <Main tabName={activeTabName} />
+      <Footer />
+    </Container>
   );
 }
 

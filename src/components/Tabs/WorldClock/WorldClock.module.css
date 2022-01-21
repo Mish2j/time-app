@@ -1,0 +1,13 @@
+.Worldclock__container {
+  width: 100%;
+}
+
+.wc__noResult {
+  padding: 1rem;
+  text-align: center;
+}
+
+.wc__noResult p {
+  color: var(--color-text-primary);
+  font-size: 1.8rem;
+}
