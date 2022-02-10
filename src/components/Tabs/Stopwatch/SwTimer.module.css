@@ -2,6 +2,12 @@
   font-size: 3.5rem;
 }
 
+@media only screen and (max-width: 28.125em) {
+  .stopwatch__time {
+    margin: 1.5rem 0;
+  }
+}
+
 .stopwatch__dots {
   font-weight: 700;
 }

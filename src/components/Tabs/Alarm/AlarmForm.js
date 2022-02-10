@@ -1,7 +1,10 @@
 import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import DateTimeContext from "../../../store/dateTime-context";
+import { ALARM, localeOptions } from "../../../helper/config";
+import { isTimeFormat12Hour } from "../../../helper/util";
+
+import ModalContext from "../../../store/modal-context";
 import Button from "../../UI/Button";
 
 import styles from "./AlarmForm.module.css";
@@ -11,12 +14,12 @@ const AlarmForm = (props) => {
   const [alarmMin, setAlarmMin] = useState("");
   const [timePeriod, setTimePeriod] = useState("AM");
 
-  const ctx = useContext(DateTimeContext);
-  const isTimeFormat12Hour = ctx.isTimeFormat12Hour();
+  const modalCtx = useContext(ModalContext);
+  const is12Hour = isTimeFormat12Hour(localeOptions.locale);
 
   const alarmHourInputHandler = (e) => {
-    const max = isTimeFormat12Hour ? 12 : 24;
-    const min = isTimeFormat12Hour ? 1 : 0;
+    const max = is12Hour ? 12 : 24;
+    const min = is12Hour ? 1 : 0;
     setAlarmHour(validateInputVal(e.target.value, max, min));
   };
 
@@ -61,15 +64,13 @@ const AlarmForm = (props) => {
     e.preventDefault();
 
     if (!alarmHour || !alarmMin) {
-      props.modalData.setMessage("Please enter time.");
+      modalCtx.openModal({ title: ALARM, message: "Please enter time." });
       return;
     }
 
-    const formattedHour = isTimeFormat12Hour
-      ? alarmHour
-      : alarmHour.padStart(2, 0);
+    const formattedHour = is12Hour ? alarmHour : alarmHour.padStart(2, 0);
     const formattedMin = alarmMin.padStart(2, 0);
-    const formattedTimePeriod = isTimeFormat12Hour ? timePeriod : "";
+    const formattedTimePeriod = is12Hour ? timePeriod : "";
 
     sendData(formattedHour, formattedMin, formattedTimePeriod);
 
@@ -77,7 +78,7 @@ const AlarmForm = (props) => {
     setAlarmMin("");
   };
 
-  const toggleAmPm = isTimeFormat12Hour && (
+  const toggleAmPm = is12Hour && (
     <select
       onChange={timePeriodHandler}
       className={styles["alarm__time"]}

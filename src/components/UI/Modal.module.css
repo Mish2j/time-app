@@ -22,8 +22,19 @@
   animation-name: fadeIn;
   animation-duration: 1s;
 
-  min-width: 30rem;
-  width: 45rem;
+  min-width: 35rem;
+}
+
+@media only screen and (max-width: 35.9875em) {
+  .modal {
+    min-width: 25rem;
+  }
+}
+
+@media only screen and (max-width: 20em) {
+  .modal {
+    min-width: 0;
+  }
 }
 
 .modal h3 {
@@ -37,7 +48,7 @@
 
 .modal p {
   font-size: 1.7rem;
-  color: black; /* change ---------- */
+  color: var(--color-black-dark);
   text-align: center;
   margin-bottom: 2.5rem;
 }

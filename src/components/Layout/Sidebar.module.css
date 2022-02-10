@@ -14,7 +14,7 @@
   justify-content: space-between;
 }
 
-@media only screen and (max-width: 56.25em) {
+@media only screen and (max-width: 61.9875em) {
   .tab__container {
     width: 100%;
     height: 100%;
@@ -31,7 +31,7 @@
   margin: auto 0;
 }
 
-@media only screen and (max-width: 56.25em) {
+@media only screen and (max-width: 61.9875em) {
   .tab__container ul {
     display: none;
   }
@@ -41,7 +41,7 @@
   display: none;
 }
 
-@media only screen and (max-width: 56.25em) {
+@media only screen and (max-width: 61.9875em) {
   .sidebar__openBtn {
     display: flex;
     padding: 1rem;
@@ -51,7 +51,7 @@
   }
 }
 
-@media only screen and (max-width: 56.25em) {
+@media only screen and (max-width: 61.9875em) {
   .sidebar__active {
     min-width: unset;
     align-self: unset;

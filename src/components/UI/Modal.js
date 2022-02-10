@@ -1,28 +1,30 @@
-import { Fragment } from "react";
 import ReactDOM from "react-dom";
-
+import { useContext } from "react";
+import ModalContext from "../../store/modal-context";
 import Button from "./Button";
 
 import styles from "./Modal.module.css";
 
-const Modal = (props) => {
-  const { isModalActive, title, message } = props.modalData;
+const Modal = () => {
+  const modalCtx = useContext(ModalContext);
 
-  const closeModal = props.onClose;
+  const closeModalHandler = () => {
+    modalCtx.closeModal();
+  };
 
   const modalContent = (
-    <Fragment>
-      <div onClick={closeModal} className={styles.backdrop} />
+    <>
+      <div onClick={closeModalHandler} className={styles.backdrop} />
       <div className={styles.modal}>
-        <h3>{title}</h3>
-        <p>{message}</p>
-        <Button onClick={closeModal}>Close</Button>
+        <h3>{modalCtx.title}</h3>
+        <p>{modalCtx.message}</p>
+        <Button onClick={closeModalHandler}>Close</Button>
       </div>
-    </Fragment>
+    </>
   );
 
   return ReactDOM.createPortal(
-    isModalActive ? modalContent : null,
+    modalCtx.isModalActive ? modalContent : null,
     document.getElementById("modal-root")
   );
 };

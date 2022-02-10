@@ -25,13 +25,13 @@ html {
   box-sizing: border-box;
 }
 
-@media only screen and (min-width: 112.5em) {
+@media only screen and (min-width: 119.9875em) {
   html {
     font-size: 75%; /*1rem = 12px*/
   }
 }
 
-@media only screen and (max-width: 75em) {
+@media only screen and (max-width: 74.9875em) {
   html {
     font-size: 56.25%; /*1rem = 9px */
   }
@@ -40,6 +40,7 @@ html {
 body {
   width: 100%;
   min-height: 100vh;
+
   background-color: var(--color-black-dark);
 
   font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
@@ -53,16 +54,6 @@ body {
 
   position: relative;
 }
-
-/* // html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
-//   margin: 0;
-//   padding: 0;
-//   border: 0;
-//   outline: 0;
-//   font-size: 100%;
-//   vertical-align: baseline;
-//   background: transparent;
-// } */
 
 ul,
 ol {
@@ -97,14 +88,14 @@ input[type="number"] {
 }
 
 h5 {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.8rem;
 }
 
 h3 {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-size: 1.9rem;
   font-weight: 400;
   color: var(--color-text-secondary);
 }
@@ -115,6 +106,8 @@ h3 {
 
 .disable {
   display: none;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .loader {
@@ -128,7 +121,7 @@ h3 {
   width: 7rem;
   height: 7rem;
   animation: spin 2s linear infinite;
-  z-index: 10000; /* on the top of everything */
+  z-index: 10000; /* on top of everything */
 }
 
 @keyframes spin {

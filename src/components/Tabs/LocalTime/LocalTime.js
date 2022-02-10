@@ -1,16 +1,22 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 
-import DateTimeContext from "../../../store/dateTime-context";
-import InfoBar from "./InfoBar";
+import {
+  formatLocalTime,
+  formatDate,
+  formatTimezone,
+} from "../../../helper/util";
+import { localeOptions } from "../../../helper/config";
+
+import LocalData from "./LocalData";
 
 const LocalTime = (props) => {
   const [time, setTime] = useState(Date.now());
-  const ctx = useContext(DateTimeContext);
 
-  const formattedTime = ctx.formatTime(time);
-  const date = ctx.formatDate(time);
-  const timezone = ctx.formatTimezone(time);
+  const { locale, timeOptions, dateOptions, timezoneOptions } = localeOptions;
 
+  const formattedTime = formatLocalTime(time, locale, timeOptions);
+  const date = formatDate(time, locale, dateOptions);
+  const timezone = formatTimezone(time, locale, timezoneOptions);
   const isShown = props.isActive;
 
   useEffect(() => {
@@ -24,9 +30,9 @@ const LocalTime = (props) => {
 
   return (
     <div className={isShown ? "active" : "disable"}>
-      <InfoBar title="Time" data={formattedTime} />
-      <InfoBar title="Date" data={date} />
-      <InfoBar title="Timezone" data={timezone} />
+      <LocalData title="Time" data={formattedTime} />
+      <LocalData title="Date" data={date} />
+      <LocalData title="Timezone" data={timezone} />
     </div>
   );
 };

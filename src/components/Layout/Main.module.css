@@ -4,3 +4,9 @@
   justify-content: center;
   align-items: center;
 }
+
+@media only screen and (max-width: 61.9875em) {
+  .main {
+    padding: 1rem;
+  }
+}

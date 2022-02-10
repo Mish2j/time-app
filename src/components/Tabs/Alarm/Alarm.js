@@ -1,6 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 
-import DateTimeContext from "../../../store/dateTime-context";
+import { ALARM, localeOptions } from "../../../helper/config";
+import { formatLocalTime } from "../../../helper/util";
+
+import ModalContext from "../../../store/modal-context";
 
 import AlarmForm from "./AlarmForm";
 import AlarmItem from "./AlarmItem";
@@ -11,17 +14,7 @@ import styles from "./Alarm.module.css";
 
 const Alarm = (props) => {
   const [alarms, setAlarms] = useState([]);
-  const ctx = useContext(DateTimeContext);
-
-  const modalData = {
-    title: "Alarm",
-    message: "",
-
-    setMessage(msg) {
-      this.message = msg;
-      props.onOpenModal(this);
-    },
-  };
+  const { openModal } = useContext(ModalContext);
 
   const removeAlarmHandler = (id) => {
     const filteredAlarms = alarms.filter((a) => a.id !== id);
@@ -45,11 +38,19 @@ const Alarm = (props) => {
 
     const interval = setInterval(() => {
       const now = new Date();
-      const time = ctx.formatTime(now);
+
+      const time = formatLocalTime(
+        now,
+        localeOptions.locale,
+        localeOptions.timeOptions
+      );
 
       alarms.forEach((alarmTime) => {
         if (alarmTime.time === time) {
-          modalData.setMessage(`It is ${alarmTime.time}`);
+          openModal({
+            title: ALARM,
+            message: `It is ${alarmTime.time}`,
+          });
 
           const filteredAlarms = alarms.filter((a) => a.id !== alarmTime.id);
 
@@ -61,7 +62,7 @@ const Alarm = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [alarms]);
+  }, [alarms, openModal]);
 
   const displayAlarms = alarms.map((a) => {
     return (
@@ -88,8 +89,10 @@ const Alarm = (props) => {
 
   return (
     <div className={tabClasses}>
-      <h3>Choose a time to set the alarm</h3>
-      <AlarmForm modalData={modalData} alarmData={alarmDataHandler} />
+      <h3 className={styles["alarm__heading"]}>
+        Choose a time to set the alarm
+      </h3>
+      <AlarmForm alarmData={alarmDataHandler} />
       <div>{content}</div>
     </div>
   );

@@ -11,16 +11,6 @@ const WorldClock = (props) => {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const modalData = {
-    title: "World Clock",
-    message: "",
-
-    setMessage(msg) {
-      this.message = msg;
-      props.onOpenModal(this);
-    },
-  };
-
   const removeHandler = (id) => {
     const filteredCities = cities.filter((c) => c.id !== id);
     setCities(filteredCities);
@@ -71,7 +61,6 @@ const WorldClock = (props) => {
     <div className={tabClasses}>
       <WcForm
         cityList={cities}
-        modalData={modalData}
         worldClockData={worldClockDataHandler}
         isLoading={onDataLoadHandler}
       />

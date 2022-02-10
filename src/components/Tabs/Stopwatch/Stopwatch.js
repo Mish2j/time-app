@@ -1,6 +1,9 @@
 import { useReducer, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import { formatTime } from "../../../helper/util";
+import { STOPWATCH_ACTION } from "../../../helper/config";
+
 import SwTimer from "./SwTimer";
 import SwControl from "./SwControl";
 import SwLaps from "./SwLaps";
@@ -8,15 +11,15 @@ import SwLaps from "./SwLaps";
 import styles from "./Stopwatch.module.css";
 
 const stopwatchReducer = (state, action) => {
-  if (action.type === "START") {
+  if (action.type === STOPWATCH_ACTION.START) {
     return { isRunning: action.isRunning, isPaused: action.isPaused };
   }
 
-  if (action.type === "STOP") {
+  if (action.type === STOPWATCH_ACTION.STOP) {
     return { isRunning: action.isRunning, isPaused: action.isPaused };
   }
 
-  if (action.type === "RESET") {
+  if (action.type === STOPWATCH_ACTION.RESET) {
     return { isRunning: action.isRunning, isPaused: action.isPaused };
   }
 
@@ -33,19 +36,7 @@ const Stopwatch = (props) => {
 
   const [elapsedTime, setElapsedTime] = useState(0);
   const [lapStartTime, setLapStartTime] = useState(0);
-  const [prevTime, setPrevTime] = useState(0);
-
-  const formatTime = (time) => {
-    const minFormatted = String(Math.trunc(time / 1000 / 60)).padStart(2, 0);
-    const secFormatted = String(Math.trunc((time / 1000) % 60)).padStart(2, 0);
-    const millisecFormatted = String(time % 1000).padStart(3, 0);
-
-    return {
-      minute: minFormatted,
-      seconds: secFormatted,
-      milliseconds: millisecFormatted,
-    };
-  };
+  const [lapsSum, setLapsSum] = useState(0);
 
   const updateLastLapTime = (time) => {
     const { minute, seconds, milliseconds } = formatTime(time);
@@ -58,29 +49,31 @@ const Stopwatch = (props) => {
   };
 
   useEffect(() => {
-    if (!stopwatchState.isRunning) return;
-    setPrevTime(Date.now());
+    setLapStartTime(elapsedTime - lapsSum);
+    updateLastLapTime(lapStartTime);
+  }, [elapsedTime, lapStartTime, lapsSum]);
 
+  useEffect(() => {
+    if (!stopwatchState.isRunning) return;
+
+    let prevTime = Date.now();
     const interval = setInterval(() => {
       setElapsedTime(
         (prevStateTime) => prevStateTime + (Date.now() - prevTime)
       );
-      setLapStartTime(
-        (prevStateTime) => prevStateTime + (Date.now() - prevTime)
-      );
-
-      setPrevTime(Date.now());
     }, 100);
-
-    updateLastLapTime(lapStartTime);
 
     return () => {
       clearInterval(interval);
     };
-  }, [stopwatchState.isRunning, lapStartTime, prevTime]);
+  }, [stopwatchState.isRunning, elapsedTime]);
 
   const stopwatchStartHandler = () => {
-    dispatchStopwatch({ type: "START", isRunning: true, isPaused: false });
+    dispatchStopwatch({
+      type: STOPWATCH_ACTION.START,
+      isRunning: true,
+      isPaused: false,
+    });
 
     if (laps.length !== 0) return;
 
@@ -95,18 +88,29 @@ const Stopwatch = (props) => {
   };
 
   const stopwatchResetHandler = () => {
-    dispatchStopwatch({ type: "RESET", isRunning: false, isPaused: false });
+    dispatchStopwatch({
+      type: STOPWATCH_ACTION.RESET,
+      isRunning: false,
+      isPaused: false,
+    });
 
     setElapsedTime(0);
     setLapStartTime(0);
+    setLapsSum(0);
+
     setLaps([]);
   };
 
   const stopwatchStopHandler = () => {
-    dispatchStopwatch({ type: "STOP", isRunning: false, isPaused: true });
+    dispatchStopwatch({
+      type: STOPWATCH_ACTION.STOP,
+      isRunning: false,
+      isPaused: true,
+    });
   };
 
   const addNewLap = () => {
+    setLapsSum((prevVal) => prevVal + lapStartTime);
     const newLap = { time: lapStartTime, id: uuidv4() };
     setLaps((prevLaps) => [...prevLaps, newLap]);
   };

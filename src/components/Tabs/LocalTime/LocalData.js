@@ -1,6 +1,6 @@
-import styles from "./InfoBar.module.css";
+import styles from "./LocalData.module.css";
 
-const InfoBar = (props) => {
+const LocalData = (props) => {
   return (
     <div className={styles["lc__data"]}>
       <h5>{props.title}</h5>
@@ -9,4 +9,4 @@ const InfoBar = (props) => {
   );
 };
 
-export default InfoBar;
+export default LocalData;

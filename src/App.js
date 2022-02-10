@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 import Container from "./components/UI/Container";
-
 import Main from "./components/Layout/Main";
 import Sidebar from "./components/Layout/Sidebar";
 import Footer from "./components/Layout/Footer";
+import { LOCAL_TIME } from "./helper/config";
 
 function App() {
-  const [activeTabName, setActiveTabName] = useState("LocalTime");
+  const [activeTabName, setActiveTabName] = useState(LOCAL_TIME);
 
   return (
     <Container>

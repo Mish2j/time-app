@@ -3,8 +3,7 @@ import styles from "./SwControl.module.css";
 import Button from "../../UI/Button";
 
 const SwControl = (props) => {
-  const isTimerPaused = props.isPaused;
-  const isTimerRunning = props.isRunning;
+  const { isPaused: isTimerPaused, isRunning: isTimerRunning } = props;
 
   return (
     <div className={styles["stopwatch__control"]}>

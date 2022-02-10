@@ -1,30 +1,20 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
+
+import { API_URL, WORLD_CLOCK } from "../../../helper/config";
+import { getFormattedCityName, getJson } from "../../../helper/util";
+import ModalContext from "../../../store/modal-context";
 
 import Button from "../../UI/Button";
 
 import styles from "./WcForm.module.css";
 
 const WcForm = (props) => {
-  const API_URL = "https://worldtimeapi.org/api/timezone";
   const enteredCityRef = useRef();
-
-  const getJSON = async (url) => {
-    try {
-      const res = await fetch(url);
-
-      if (!res.ok) throw new Error("Request failed!");
-
-      const data = await res.json();
-
-      return data;
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
+  const modalCtx = useContext(ModalContext);
 
   // return city if it exists
-  const returnCity = async function (searchCity, url) {
+  const returnCity = async (searchCity, url) => {
     try {
       const formatCityName = searchCity
         .trim()
@@ -33,7 +23,7 @@ const WcForm = (props) => {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join("_");
 
-      const allCities = await getJSON(url);
+      const allCities = await getJson(url);
 
       const city = allCities.filter((cityName) =>
         cityName.includes(`${formatCityName}`)
@@ -55,9 +45,9 @@ const WcForm = (props) => {
     }
   };
 
-  const returnCityTime = async function (city, url) {
+  const returnCityTime = async (city, url) => {
     try {
-      const data = await getJSON(`${url}/${city}`);
+      const data = await getJson(`${url}/${city}`);
 
       const { datetime } = data;
 
@@ -72,14 +62,8 @@ const WcForm = (props) => {
     }
   };
 
-  const getFormattedCityName = (city) => {
-    const splitArr = city.split("/");
-    const result = splitArr[splitArr.length - 1];
-    return result;
-  };
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  const submitHandler = async (event) => {
+    event.preventDefault();
 
     props.isLoading(true);
 
@@ -106,9 +90,10 @@ const WcForm = (props) => {
 
       sendData(formattedCityName, searchedCityDateTime);
     } catch (error) {
-      props.modalData.setMessage(`${error.message}`);
+      modalCtx.openModal({ title: WORLD_CLOCK, message: `${error.message}` });
     } finally {
       props.isLoading(false);
+      enteredCityRef.current.blur();
     }
   };
 

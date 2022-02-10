@@ -1,0 +1,7 @@
+.timer__headings {
+  display: flex;
+}
+
+.timer__headings label {
+  flex: 1;
+}

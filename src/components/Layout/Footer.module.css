@@ -14,9 +14,14 @@
   font-size: 2rem;
 }
 
-@media only screen and (max-width: 56.25em) {
+@media only screen and (max-width: 20em) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
   .footer__social {
-    margin-left: 2rem;
+    margin-top: 1rem;
   }
 }
 

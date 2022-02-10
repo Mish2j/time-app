@@ -1,15 +1,19 @@
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
+
+import { SECONDS_IN_HOUR, SECONDS_IN_MIN, TIMER } from "../../../helper/config";
+import ModalContext from "../../../store/modal-context";
 
 import TimerTime from "./TimerTime";
 import Button from "../../UI/Button";
+import TimerLabel from "./TimerLabel";
 
 import styles from "./TimerForm.module.css";
 
 const TimerForm = (props) => {
+  const modalCtx = useContext(ModalContext);
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
   const [seconds, setSeconds] = useState("");
-
   const [isRunning, setIsRunning] = useState(false);
 
   const [timerTime, setTimerTime] = useState({
@@ -19,9 +23,6 @@ const TimerForm = (props) => {
   });
 
   const [timeInSeconds, setTimeInSeconds] = useState(0);
-
-  const secondsInOneHour = 3600;
-  const secondsInOneMin = 60;
 
   const hourInputHandler = (e) => {
     setHour(e.target.value);
@@ -37,14 +38,17 @@ const TimerForm = (props) => {
 
   const timerStartHandler = function () {
     if (!hour && !minute && !seconds) {
-      props.modal.setMessage("Please enter the time to start the timer.");
+      modalCtx.openModal({
+        title: TIMER,
+        message: "Please enter the time to start the timer.",
+      });
       return;
     }
 
     setIsRunning(true);
 
     setTimeInSeconds(
-      Math.abs(+hour * secondsInOneHour + +minute * secondsInOneMin + +seconds)
+      Math.abs(+hour * SECONDS_IN_HOUR + +minute * SECONDS_IN_MIN + +seconds)
     );
 
     setHour("");
@@ -59,16 +63,16 @@ const TimerForm = (props) => {
     setTimerTime({ timerHour: "00", timerMinute: "00", timerSeconds: "00" });
   };
 
-  const updateTimer = () => {
+  const updateTimer = useCallback(() => {
     const formattedTimerHour = String(
-      Math.trunc(timeInSeconds / secondsInOneHour)
+      Math.trunc(timeInSeconds / SECONDS_IN_HOUR)
     ).padStart(2, 0);
 
     const formattedTimerMin = String(
-      Math.trunc((timeInSeconds / secondsInOneMin) % secondsInOneMin)
+      Math.trunc((timeInSeconds / SECONDS_IN_MIN) % SECONDS_IN_MIN)
     ).padStart(2, 0);
 
-    const formattedTimerSec = String(timeInSeconds % secondsInOneMin).padStart(
+    const formattedTimerSec = String(timeInSeconds % SECONDS_IN_MIN).padStart(
       2,
       0
     );
@@ -78,7 +82,7 @@ const TimerForm = (props) => {
       timerMinute: formattedTimerMin,
       timerSeconds: formattedTimerSec,
     });
-  };
+  }, [timeInSeconds]);
 
   useEffect(() => {
     if (!isRunning) return;
@@ -92,22 +96,12 @@ const TimerForm = (props) => {
     return () => {
       clearInterval(tick);
     };
-  }, [isRunning, timeInSeconds]);
+  }, [isRunning, timeInSeconds, updateTimer]);
 
   return (
-    <Fragment>
+    <>
       <div className={styles["timer__set"]}>
-        <div className={styles["timer__headings"]}>
-          <label htmlFor="hour">
-            <h5>Hours</h5>
-          </label>
-          <label htmlFor="minute">
-            <h5>Min</h5>
-          </label>
-          <label htmlFor="seconds">
-            <h5>Sec</h5>
-          </label>
-        </div>
+        <TimerLabel />
         <div className={styles["timer__inputs"]}>
           <input
             onChange={hourInputHandler}
@@ -134,7 +128,7 @@ const TimerForm = (props) => {
         <TimerTime time={timerTime} />
         <Button onClick={timerStartHandler}>START</Button>
       </div>
-    </Fragment>
+    </>
   );
 };
 
