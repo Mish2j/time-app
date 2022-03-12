@@ -40,7 +40,7 @@ const TimerForm = (props) => {
     if (!hour && !minute && !seconds) {
       modalCtx.openModal({
         title: TIMER,
-        message: "Please enter the time to start the timer.",
+        message: "Please set the duration of time to start the timer.",
       });
       return;
     }

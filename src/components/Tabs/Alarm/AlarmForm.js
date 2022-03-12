@@ -64,7 +64,7 @@ const AlarmForm = (props) => {
     e.preventDefault();
 
     if (!alarmHour || !alarmMin) {
-      modalCtx.openModal({ title: ALARM, message: "Please enter time." });
+      modalCtx.openModal({ title: ALARM, message: "Please enter a time." });
       return;
     }
 

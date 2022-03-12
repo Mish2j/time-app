@@ -10,7 +10,7 @@ const Timer = (props) => {
 
   return (
     <div className={tabClasses}>
-      <h3>Enter a number to set the timer</h3>
+      <h3>Set the duration of time to start the timer</h3>
       <TimerForm />
     </div>
   );

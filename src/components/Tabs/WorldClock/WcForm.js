@@ -29,14 +29,14 @@ const WcForm = (props) => {
         cityName.includes(`${formatCityName}`)
       );
 
-      if (city.length > 1)
-        throw new Error(
-          `The search result returned more than one city. Please try to enter the full name of the city.`
-        );
-
       if (city.length === 0)
         throw new Error(
           `The city '${searchCity}' you are looking for does not exist. Try another one.`
+        );
+
+      if (city.length > 1)
+        throw new Error(
+          `The search result returned more than one city. Please try entering the full name of the city.`
         );
 
       return city[0];
@@ -73,7 +73,7 @@ const WcForm = (props) => {
 
     try {
       if (searchedCityName.trim() === "") {
-        throw new Error("Please enter the city name you are looking for.");
+        throw new Error("Please enter a city name.");
       }
 
       const searchedCity = await returnCity(searchedCityName, API_URL);
@@ -108,11 +108,7 @@ const WcForm = (props) => {
 
   return (
     <form onSubmit={submitHandler} className={styles["wc__search"]}>
-      <input
-        ref={enteredCityRef}
-        type="text"
-        placeholder="Search by city name"
-      />
+      <input ref={enteredCityRef} type="text" placeholder="Enter a city name" />
       <Button type="submit">
         <i className="fas fa-search"></i>
       </Button>
