@@ -49,7 +49,7 @@ When the time you have set arrives, you will be notified by a modal window. In t
     - Click **START** to run the stopwatch.
     - To pause the stopwatch, click **STOP**.
     - To record a lap, click **LAP**.
-    - To clear the stopwatch, click **STOP** on the right, and a reset button will appear on the left. Click the ***RESET** button.
+    - To clear the stopwatch, click **STOP** on the right, and a reset button will appear on the left. Click the **RESET** button.
 
 
 ## Technologies
