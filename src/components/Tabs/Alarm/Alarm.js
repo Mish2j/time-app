@@ -1,4 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, createRef } from "react";
+
+import CSSTransition from "react-transition-group/CSSTransition";
 
 import { ALARM, localeOptions } from "../../../helper/config";
 import { formatLocalTime } from "../../../helper/util";
@@ -15,6 +17,7 @@ import styles from "./Alarm.module.css";
 const Alarm = (props) => {
   const [alarms, setAlarms] = useState([]);
   const { openModal } = useContext(ModalContext);
+  const tabRef = createRef(null);
 
   const removeAlarmHandler = (id) => {
     const filteredAlarms = alarms.filter((a) => a.id !== id);
@@ -64,14 +67,22 @@ const Alarm = (props) => {
     };
   }, [alarms, openModal]);
 
-  const displayAlarms = alarms.map((a) => {
+  const displayAlarms = alarms.map((alarm) => {
+    const itemRef = createRef(null);
     return (
-      <AlarmItem
-        key={a.id}
-        time={a.time}
-        id={a.id}
-        onRemove={removeAlarmHandler}
-      />
+      <CSSTransition
+        nodeRef={itemRef}
+        key={alarm.id}
+        classNames="fade"
+        timeout={300}
+      >
+        <AlarmItem
+          ref={itemRef}
+          time={alarm.time}
+          id={alarm.id}
+          onRemove={removeAlarmHandler}
+        />
+      </CSSTransition>
     );
   });
 
@@ -88,13 +99,20 @@ const Alarm = (props) => {
   }`;
 
   return (
-    <div className={tabClasses}>
-      <h3 className={styles["alarm__heading"]}>
-        Choose a time to set the alarm
-      </h3>
-      <AlarmForm alarmData={alarmDataHandler} />
-      <div>{content}</div>
-    </div>
+    <CSSTransition
+      in={isShown}
+      timeout={200}
+      classNames="slide"
+      nodeRef={tabRef}
+    >
+      <div className={tabClasses} ref={tabRef}>
+        <h3 className={styles["alarm__heading"]}>
+          Choose a time to set the alarm
+        </h3>
+        <AlarmForm alarmData={alarmDataHandler} />
+        <div>{content}</div>
+      </div>
+    </CSSTransition>
   );
 };
 

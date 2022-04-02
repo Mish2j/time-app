@@ -1,5 +1,7 @@
-import { useReducer, useState, useEffect } from "react";
+import { useReducer, useState, useEffect, createRef } from "react";
 import { v4 as uuidv4 } from "uuid";
+
+import CSSTransition from "react-transition-group/CSSTransition";
 
 import { formatTime } from "../../../helper/util";
 import { STOPWATCH_ACTION } from "../../../helper/config";
@@ -27,6 +29,7 @@ const stopwatchReducer = (state, action) => {
 };
 
 const Stopwatch = (props) => {
+  const tabRef = createRef(null);
   const [laps, setLaps] = useState([]);
 
   const [stopwatchState, dispatchStopwatch] = useReducer(stopwatchReducer, {
@@ -123,19 +126,26 @@ const Stopwatch = (props) => {
   }`;
 
   return (
-    <div className={tabClasses}>
-      <SwControl
-        isPaused={stopwatchState.isPaused}
-        isRunning={stopwatchState.isRunning}
-        onStart={stopwatchStartHandler}
-        onStop={stopwatchStopHandler}
-        onReset={stopwatchResetHandler}
-        onLapAdd={stopwatchLapHandler}
-      >
-        <SwTimer min={minute} sec={seconds} mil={milliseconds} />
-      </SwControl>
-      <SwLaps lapList={laps} />
-    </div>
+    <CSSTransition
+      in={isShown}
+      timeout={200}
+      classNames="slide"
+      nodeRef={tabRef}
+    >
+      <div className={tabClasses} ref={tabRef}>
+        <SwControl
+          isPaused={stopwatchState.isPaused}
+          isRunning={stopwatchState.isRunning}
+          onStart={stopwatchStartHandler}
+          onStop={stopwatchStopHandler}
+          onReset={stopwatchResetHandler}
+          onLapAdd={stopwatchLapHandler}
+        >
+          <SwTimer min={minute} sec={seconds} mil={milliseconds} />
+        </SwControl>
+        <SwLaps lapList={laps} />
+      </div>
+    </CSSTransition>
   );
 };
 

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, createRef } from "react";
+
+import CSSTransition from "react-transition-group/CSSTransition";
 
 import WcForm from "./WcForm";
 import WcItem from "./WcItem";
@@ -10,6 +12,7 @@ import styles from "./WorldClock.module.css";
 const WorldClock = (props) => {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const tabRef = createRef(null);
 
   const removeHandler = (id) => {
     const filteredCities = cities.filter((c) => c.id !== id);
@@ -34,14 +37,22 @@ const WorldClock = (props) => {
   };
 
   const searchedCities = cities.map((city) => {
+    const itemRef = createRef(null);
     return (
-      <WcItem
+      <CSSTransition
+        nodeRef={itemRef}
         key={city.id}
-        cityName={city.cityName}
-        dateTime={city.dateTime}
-        id={city.id}
-        onRemove={removeHandler}
-      />
+        classNames="fade"
+        timeout={300}
+      >
+        <WcItem
+          ref={itemRef}
+          cityName={city.cityName}
+          dateTime={city.dateTime}
+          id={city.id}
+          onRemove={removeHandler}
+        />
+      </CSSTransition>
     );
   });
 
@@ -58,15 +69,22 @@ const WorldClock = (props) => {
   }`;
 
   return (
-    <div className={tabClasses}>
-      <WcForm
-        cityList={cities}
-        worldClockData={worldClockDataHandler}
-        isLoading={onDataLoadHandler}
-      />
-      <div>{content}</div>
-      {isLoading ? <div className="loader" /> : null}
-    </div>
+    <CSSTransition
+      in={isShown}
+      timeout={200}
+      classNames="slide"
+      nodeRef={tabRef}
+    >
+      <div className={tabClasses} ref={tabRef}>
+        <WcForm
+          cityList={cities}
+          worldClockData={worldClockDataHandler}
+          isLoading={onDataLoadHandler}
+        />
+        <div>{content}</div>
+        {isLoading ? <div className="loader" /> : null}
+      </div>
+    </CSSTransition>
   );
 };
 

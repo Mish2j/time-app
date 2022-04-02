@@ -14,7 +14,7 @@ const Footer = (props) => {
         </a>
         <a
           target="_blank"
-          href="https://www.linkedin.com/"
+          href="https://www.linkedin.com/in/mishel-ghukasyan/"
           rel="noopener noreferrer"
         >
           <i className="fab fa-linkedin"></i>

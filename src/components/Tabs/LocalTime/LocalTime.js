@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createRef } from "react";
+
+import CSSTransition from "react-transition-group/CSSTransition";
 
 import {
   formatLocalTime,
@@ -11,6 +13,7 @@ import LocalData from "./LocalData";
 
 const LocalTime = (props) => {
   const [time, setTime] = useState(Date.now());
+  const tabRef = createRef(null);
 
   const { locale, timeOptions, dateOptions, timezoneOptions } = localeOptions;
 
@@ -29,11 +32,18 @@ const LocalTime = (props) => {
   }, [isShown]);
 
   return (
-    <div className={isShown ? "active" : "disable"}>
-      <LocalData title="Time" data={formattedTime} />
-      <LocalData title="Date" data={date} />
-      <LocalData title="Timezone" data={timezone} />
-    </div>
+    <CSSTransition
+      nodeRef={tabRef}
+      in={isShown}
+      timeout={200}
+      classNames="slide"
+    >
+      <div className={isShown ? "active" : "disable"} ref={tabRef}>
+        <LocalData title="Time" data={formattedTime} />
+        <LocalData title="Date" data={date} />
+        <LocalData title="Timezone" data={timezone} />
+      </div>
+    </CSSTransition>
   );
 };
 

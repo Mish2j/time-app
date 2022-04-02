@@ -14,6 +14,7 @@ function App() {
       <Sidebar
         onTabContentChange={(tabContent) => setActiveTabName(tabContent)}
       />
+
       <Main tabName={activeTabName} />
       <Footer />
     </Container>

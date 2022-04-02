@@ -1,6 +1,8 @@
 import ReactDOM from "react-dom";
 import { useContext } from "react";
+
 import ModalContext from "../../store/modal-context";
+
 import Button from "./Button";
 
 import styles from "./Modal.module.css";
@@ -13,14 +15,14 @@ const Modal = () => {
   };
 
   const modalContent = (
-    <>
+    <div>
       <div onClick={closeModalHandler} className={styles.backdrop} />
       <div className={styles.modal}>
         <h3>{modalCtx.title}</h3>
         <p>{modalCtx.message}</p>
         <Button onClick={closeModalHandler}>Close</Button>
       </div>
-    </>
+    </div>
   );
 
   return ReactDOM.createPortal(
