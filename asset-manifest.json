@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/time-app/static/css/main.2f01e5c1.chunk.css",
-    "main.js": "/time-app/static/js/main.a80b5cbc.chunk.js",
-    "main.js.map": "/time-app/static/js/main.a80b5cbc.chunk.js.map",
+    "main.css": "/time-app/static/css/main.3546a2c3.chunk.css",
+    "main.js": "/time-app/static/js/main.3554f64c.chunk.js",
+    "main.js.map": "/time-app/static/js/main.3554f64c.chunk.js.map",
     "runtime-main.js": "/time-app/static/js/runtime-main.a04247e9.js",
     "runtime-main.js.map": "/time-app/static/js/runtime-main.a04247e9.js.map",
-    "static/js/2.6c6e7a1a.chunk.js": "/time-app/static/js/2.6c6e7a1a.chunk.js",
-    "static/js/2.6c6e7a1a.chunk.js.map": "/time-app/static/js/2.6c6e7a1a.chunk.js.map",
+    "static/js/2.29593c9f.chunk.js": "/time-app/static/js/2.29593c9f.chunk.js",
+    "static/js/2.29593c9f.chunk.js.map": "/time-app/static/js/2.29593c9f.chunk.js.map",
     "index.html": "/time-app/index.html",
-    "static/css/main.2f01e5c1.chunk.css.map": "/time-app/static/css/main.2f01e5c1.chunk.css.map",
-    "static/js/2.6c6e7a1a.chunk.js.LICENSE.txt": "/time-app/static/js/2.6c6e7a1a.chunk.js.LICENSE.txt"
+    "static/css/main.3546a2c3.chunk.css.map": "/time-app/static/css/main.3546a2c3.chunk.css.map",
+    "static/js/2.29593c9f.chunk.js.LICENSE.txt": "/time-app/static/js/2.29593c9f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a04247e9.js",
-    "static/js/2.6c6e7a1a.chunk.js",
-    "static/css/main.2f01e5c1.chunk.css",
-    "static/js/main.a80b5cbc.chunk.js"
+    "static/js/2.29593c9f.chunk.js",
+    "static/css/main.3546a2c3.chunk.css",
+    "static/js/main.3554f64c.chunk.js"
   ]
 }
