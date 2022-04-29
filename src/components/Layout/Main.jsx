@@ -4,7 +4,7 @@ import {
   TIMER,
   STOPWATCH,
   LOCAL_TIME,
-} from "../../helper/config";
+} from "../../constants/const";
 
 import LocalTime from "../Tabs/LocalTime/LocalTime";
 import WorldClock from "../Tabs/WorldClock/WorldClock";
@@ -15,15 +15,15 @@ import TabContainer from "../Tabs/TabContainer";
 
 import styles from "./Main.module.css";
 
-const Main = (props) => {
+const Main = ({ tabName }) => {
   return (
     <main className={styles.main}>
       <TabContainer>
-        <LocalTime isActive={props.tabName === LOCAL_TIME ? true : false} />
-        <WorldClock isActive={props.tabName === WORLD_CLOCK ? true : false} />
-        <Alarm isActive={props.tabName === ALARM ? true : false} />
-        <Timer isActive={props.tabName === TIMER ? true : false} />
-        <Stopwatch isActive={props.tabName === STOPWATCH ? true : false} />
+        <LocalTime isActive={tabName === LOCAL_TIME} />
+        <WorldClock isActive={tabName === WORLD_CLOCK} />
+        <Alarm isActive={tabName === ALARM} />
+        <Timer isActive={tabName === TIMER} />
+        <Stopwatch isActive={tabName === STOPWATCH} />
       </TabContainer>
     </main>
   );

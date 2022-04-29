@@ -1,6 +1,11 @@
 import { useState, useEffect, useContext, useCallback } from "react";
 
-import { SECONDS_IN_HOUR, SECONDS_IN_MIN, TIMER } from "../../../helper/config";
+import {
+  SECONDS_IN_HOUR,
+  SECONDS_IN_MIN,
+  TIMER,
+  TIMER_EMPTY_INPUT_ERR,
+} from "../../../constants/const";
 import ModalContext from "../../../store/modal-context";
 
 import TimerTime from "./TimerTime";
@@ -9,7 +14,7 @@ import TimerLabel from "./TimerLabel";
 
 import styles from "./TimerForm.module.css";
 
-const TimerForm = (props) => {
+const TimerForm = () => {
   const modalCtx = useContext(ModalContext);
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
@@ -40,7 +45,7 @@ const TimerForm = (props) => {
     if (!hour && !minute && !seconds) {
       modalCtx.openModal({
         title: TIMER,
-        message: "Please set the duration of time to start the timer.",
+        message: TIMER_EMPTY_INPUT_ERR,
       });
       return;
     }

@@ -1,4 +1,4 @@
-import { REQUEST_ERROR, SECONDS_IN_MIN } from "../helper/config";
+import { SECONDS_IN_MIN, REQUEST_ERROR } from "../constants/const";
 
 export const formatTime = (time) => {
   const minFormatted = String(
@@ -17,10 +17,31 @@ export const formatTime = (time) => {
   };
 };
 
-export const getFormattedCityName = (city) => {
+export const returnFilteredCityName = (city) => {
   const splitArr = city.split("/");
-  const result = splitArr[splitArr.length - 1];
-  return result;
+  return splitArr[splitArr.length - 1].replace(/[^a-zA-Z]+/g, " ");
+};
+
+// to match the name from API data
+export const formatEnteredCityName = (cityName) => {
+  return cityName
+    .trim()
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("_");
+};
+
+export const formatDateTime = (dateTime, locale, options) => {
+  return new Intl.DateTimeFormat(locale, options).format(dateTime);
+};
+
+export const isTimeFormat12Hour = (locale) => {
+  return (
+    Intl.DateTimeFormat(locale, {
+      hour: "numeric",
+    }).resolvedOptions().hourCycle === "h12"
+  );
 };
 
 export const getJson = async (url) => {
@@ -35,26 +56,4 @@ export const getJson = async (url) => {
   } catch (error) {
     throw new Error(error.message);
   }
-};
-
-export const formatLocalTime = (time, locale, options) => {
-  return new Intl.DateTimeFormat(locale, options).format(time);
-};
-
-export const formatDate = (time, locale, dateOptions) => {
-  return new Intl.DateTimeFormat(locale, dateOptions).format(time);
-};
-
-export const formatTimezone = (time, locale, timezoneOptions) => {
-  return new Intl.DateTimeFormat(locale, timezoneOptions)
-    .format(time)
-    .split(",")[1];
-};
-
-export const isTimeFormat12Hour = (locale) => {
-  return Intl.DateTimeFormat(locale, {
-    hour: "numeric",
-  }).resolvedOptions().hourCycle === "h12"
-    ? true
-    : false;
 };

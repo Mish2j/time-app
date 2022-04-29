@@ -1,13 +1,13 @@
 import styles from "./SwTimer.module.css";
 
-const SwTimer = (props) => {
+const SwTimer = ({ min, sec, mil }) => {
   return (
     <div className={styles["stopwatch__time"]}>
-      <span>{props.min}</span>
+      <span>{min}</span>
       <span className={styles["stopwatch__dots"]}>:</span>
-      <span>{props.sec}</span>
+      <span>{sec}</span>
       <span className={styles["stopwatch__dots"]}>.</span>
-      <span>{props.mil}</span>
+      <span>{mil}</span>
     </div>
   );
 };

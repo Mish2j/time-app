@@ -4,12 +4,6 @@ export const LOCAL_TIME = "LocalTime";
 export const TIMER = "Timer";
 export const STOPWATCH = "Stopwatch";
 
-export const STOPWATCH_ACTION = {
-  START: "START",
-  STOP: "STOP",
-  RESET: "RESET",
-};
-
 export const SECONDS_IN_HOUR = 3600;
 export const SECONDS_IN_MIN = 60;
 
@@ -17,7 +11,20 @@ export const API_URL = "https://worldtimeapi.org/api/timezone";
 
 export const REQUEST_ERROR = "Request failed!";
 
-export const localeOptions = {
+export const TIMER_EMPTY_INPUT_ERR =
+  "Please set the duration of time to start the timer.";
+
+export const WORLD_CLOCK_SEARCH_ERROR =
+  "The city you are looking for does not exist. Try another one.";
+export const WORLD_CLOCK_RESULT_ERROR =
+  "The search result returned more than one city. Please try entering the full name of the city.";
+export const WORLD_CLOCK_EMPTY_LIST = "You don't have any search results yet.";
+
+export const STOPWATCH_EMPTY_LIST = "Click start to run the stopwatch.";
+
+export const ALARM_EMPTY_LIST = "You haven't set an alarm yet.";
+
+export const LOCALE_OPTIONS = {
   locale: navigator.language,
 
   timeOptions: {

@@ -1,41 +1,28 @@
 import { useReducer, useState, useEffect, createRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import CSSTransition from "react-transition-group/CSSTransition";
-
+import * as reducer from "../../../reducers/index";
 import { formatTime } from "../../../helper/util";
-import { STOPWATCH_ACTION } from "../../../helper/config";
 
 import SwTimer from "./SwTimer";
 import SwControl from "./SwControl";
 import SwLaps from "./SwLaps";
 
+import CSSTransition from "react-transition-group/CSSTransition";
+
 import styles from "./Stopwatch.module.css";
 
-const stopwatchReducer = (state, action) => {
-  if (action.type === STOPWATCH_ACTION.START) {
-    return { isRunning: action.isRunning, isPaused: action.isPaused };
-  }
-
-  if (action.type === STOPWATCH_ACTION.STOP) {
-    return { isRunning: action.isRunning, isPaused: action.isPaused };
-  }
-
-  if (action.type === STOPWATCH_ACTION.RESET) {
-    return { isRunning: action.isRunning, isPaused: action.isPaused };
-  }
-
-  return { isRunning: false, isPaused: false };
-};
-
-const Stopwatch = (props) => {
+const Stopwatch = ({ isActive }) => {
   const tabRef = createRef(null);
   const [laps, setLaps] = useState([]);
 
-  const [stopwatchState, dispatchStopwatch] = useReducer(stopwatchReducer, {
-    isRunning: false,
-    isPaused: false,
-  });
+  const [stopwatchState, dispatchStopwatch] = useReducer(
+    reducer.stopwatchReducer,
+    {
+      isRunning: false,
+      isPaused: false,
+    }
+  );
 
   const [elapsedTime, setElapsedTime] = useState(0);
   const [lapStartTime, setLapStartTime] = useState(0);
@@ -72,11 +59,7 @@ const Stopwatch = (props) => {
   }, [stopwatchState.isRunning, elapsedTime]);
 
   const stopwatchStartHandler = () => {
-    dispatchStopwatch({
-      type: STOPWATCH_ACTION.START,
-      isRunning: true,
-      isPaused: false,
-    });
+    dispatchStopwatch(reducer.stopwatchStart());
 
     if (laps.length !== 0) return;
 
@@ -91,11 +74,7 @@ const Stopwatch = (props) => {
   };
 
   const stopwatchResetHandler = () => {
-    dispatchStopwatch({
-      type: STOPWATCH_ACTION.RESET,
-      isRunning: false,
-      isPaused: false,
-    });
+    dispatchStopwatch(reducer.stopwatchReset());
 
     setElapsedTime(0);
     setLapStartTime(0);
@@ -105,11 +84,7 @@ const Stopwatch = (props) => {
   };
 
   const stopwatchStopHandler = () => {
-    dispatchStopwatch({
-      type: STOPWATCH_ACTION.STOP,
-      isRunning: false,
-      isPaused: true,
-    });
+    dispatchStopwatch(reducer.stopwatchStop());
   };
 
   const addNewLap = () => {
@@ -120,14 +95,13 @@ const Stopwatch = (props) => {
 
   const { minute, seconds, milliseconds } = formatTime(elapsedTime);
 
-  const isShown = props.isActive;
   const tabClasses = `${styles["stopwatch__container"]} ${
-    isShown ? "active" : "disable"
+    isActive ? "active" : "disable"
   }`;
 
   return (
     <CSSTransition
-      in={isShown}
+      in={isActive}
       timeout={200}
       classNames="slide"
       nodeRef={tabRef}

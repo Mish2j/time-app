@@ -4,12 +4,12 @@ import SidebarLink from "./SidebarLink";
 import Button from "../UI/Button";
 import styles from "./Sidebar.module.css";
 
-const Sidebar = (props) => {
+const Sidebar = ({ onTabContentChange }) => {
   const [activeLinkIndex, setActiveLinkIndex] = useState(0);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   const tabOpenHandler = (tabName) => {
-    props.onTabContentChange(tabName);
+    onTabContentChange(tabName);
     setIsMobileSidebarOpen(false);
   };
 
@@ -26,7 +26,7 @@ const Sidebar = (props) => {
             onActiveLink={(index) => setActiveLinkIndex(index)}
             tab="Local Time"
             index={0}
-            isActive={activeLinkIndex === 0 ? true : false}
+            isActive={activeLinkIndex === 0}
             icon="far fa-clock"
           />
           <SidebarLink
@@ -34,7 +34,7 @@ const Sidebar = (props) => {
             onActiveLink={(index) => setActiveLinkIndex(index)}
             tab="World Clock"
             index={1}
-            isActive={activeLinkIndex === 1 ? true : false}
+            isActive={activeLinkIndex === 1}
             icon="fas fa-globe-americas"
           />
           <SidebarLink
@@ -42,7 +42,7 @@ const Sidebar = (props) => {
             onActiveLink={(index) => setActiveLinkIndex(index)}
             tab="Alarm"
             index={2}
-            isActive={activeLinkIndex === 2 ? true : false}
+            isActive={activeLinkIndex === 2}
             icon="far fa-bell"
           />
           <SidebarLink
@@ -50,7 +50,7 @@ const Sidebar = (props) => {
             onActiveLink={(index) => setActiveLinkIndex(index)}
             tab="Timer"
             index={3}
-            isActive={activeLinkIndex === 3 ? true : false}
+            isActive={activeLinkIndex === 3}
             icon="fas fa-hourglass-start"
           />
           <SidebarLink
@@ -58,7 +58,7 @@ const Sidebar = (props) => {
             onActiveLink={(index) => setActiveLinkIndex(index)}
             tab="Stopwatch"
             index={4}
-            isActive={activeLinkIndex === 4 ? true : false}
+            isActive={activeLinkIndex === 4}
             icon="fas fa-stopwatch"
           />
         </ul>

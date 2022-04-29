@@ -1,7 +1,7 @@
 import styles from "./TimerTime.module.css";
 
-const TimerTime = (props) => {
-  const { timerHour, timerMinute, timerSeconds } = props.time;
+const TimerTime = ({ time }) => {
+  const { timerHour, timerMinute, timerSeconds } = time;
 
   return (
     <div className={styles["timer__time"]}>

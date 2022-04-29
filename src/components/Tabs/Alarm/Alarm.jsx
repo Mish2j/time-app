@@ -2,8 +2,12 @@ import { useState, useEffect, useContext, createRef } from "react";
 
 import CSSTransition from "react-transition-group/CSSTransition";
 
-import { ALARM, localeOptions } from "../../../helper/config";
-import { formatLocalTime } from "../../../helper/util";
+import {
+  ALARM,
+  LOCALE_OPTIONS,
+  ALARM_EMPTY_LIST,
+} from "../../../constants/const";
+import { formatDateTime } from "../../../helper/util";
 
 import ModalContext from "../../../store/modal-context";
 
@@ -14,7 +18,7 @@ import DataList from "../../UI/DataList";
 
 import styles from "./Alarm.module.css";
 
-const Alarm = (props) => {
+const Alarm = ({ isActive }) => {
   const [alarms, setAlarms] = useState([]);
   const { openModal } = useContext(ModalContext);
   const tabRef = createRef(null);
@@ -42,10 +46,10 @@ const Alarm = (props) => {
     const interval = setInterval(() => {
       const now = new Date();
 
-      const time = formatLocalTime(
+      const time = formatDateTime(
         now,
-        localeOptions.locale,
-        localeOptions.timeOptions
+        LOCALE_OPTIONS.locale,
+        LOCALE_OPTIONS.timeOptions
       );
 
       alarms.forEach((alarmTime) => {
@@ -90,17 +94,16 @@ const Alarm = (props) => {
     alarms.length > 0 ? (
       <DataList>{displayAlarms}</DataList>
     ) : (
-      <EmptyContent text={`You haven't set an alarm yet.`} />
+      <EmptyContent text={ALARM_EMPTY_LIST} />
     );
 
-  const isShown = props.isActive;
   const tabClasses = `${styles["alarm__container"]} ${
-    isShown ? "active" : "disable"
+    isActive ? "active" : "disable"
   }`;
 
   return (
     <CSSTransition
-      in={isShown}
+      in={isActive}
       timeout={200}
       classNames="slide"
       nodeRef={tabRef}

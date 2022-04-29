@@ -6,17 +6,16 @@ import TimerForm from "./TimerForm";
 
 import styles from "./Timer.module.css";
 
-const Timer = (props) => {
+const Timer = ({ isActive }) => {
   const tabRef = createRef(null);
 
-  const isShown = props.isActive;
   const tabClasses = `${styles["timer__container"]} ${
-    isShown ? "active" : "disable"
+    isActive ? "active" : "disable"
   }`;
 
   return (
     <CSSTransition
-      in={isShown}
+      in={isActive}
       timeout={200}
       classNames="slide"
       nodeRef={tabRef}

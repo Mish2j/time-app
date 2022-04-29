@@ -3,14 +3,14 @@ import { createRef } from "react";
 import EmptyContent from "../../UI/EmptyContent";
 import DataList from "../../UI/DataList";
 
+import { STOPWATCH_EMPTY_LIST } from "../../../constants/const";
+
 import styles from "./SwLaps.module.css";
 
 import CSSTransition from "react-transition-group/CSSTransition";
 
-const SwLaps = (props) => {
-  const laps = props.lapList;
-
-  const renderLaps = laps
+const SwLaps = ({ lapList }) => {
+  const renderLaps = lapList
     .map((lap, i) => {
       const elemRef = createRef(null);
       return (
@@ -32,10 +32,10 @@ const SwLaps = (props) => {
 
   return (
     <div className={styles["lap__container"]}>
-      {laps.length > 0 ? (
+      {lapList.length > 0 ? (
         <DataList>{renderLaps}</DataList>
       ) : (
-        <EmptyContent text="Click start to run the stopwatch." />
+        <EmptyContent text={STOPWATCH_EMPTY_LIST} />
       )}
     </div>
   );

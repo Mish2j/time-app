@@ -2,19 +2,20 @@ import { useState, createRef } from "react";
 
 import CSSTransition from "react-transition-group/CSSTransition";
 
+import { WORLD_CLOCK_EMPTY_LIST } from "../../../constants/const";
+
 import WcForm from "./WcForm";
-import WcItem from "./WcItem";
 import EmptyContent from "../../UI/EmptyContent";
-import DataList from "../../UI/DataList";
+import WcCityList from "./WcCityList";
 
 import styles from "./WorldClock.module.css";
 
-const WorldClock = (props) => {
+const WorldClock = ({ isActive }) => {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const tabRef = createRef(null);
 
-  const removeHandler = (id) => {
+  const removeCityHandler = (id) => {
     const filteredCities = cities.filter((c) => c.id !== id);
     setCities(filteredCities);
   };
@@ -24,53 +25,35 @@ const WorldClock = (props) => {
   };
 
   const worldClockDataHandler = (wcData) => {
-    const { id, cityName, dateTime } = wcData;
+    const { id, cityName } = wcData;
 
     setCities((prevCities) => [
       {
         id,
         cityName,
-        dateTime,
       },
       ...prevCities,
     ]);
   };
 
-  const searchedCities = cities.map((city) => {
-    const itemRef = createRef(null);
-    return (
-      <CSSTransition
-        nodeRef={itemRef}
-        key={city.id}
-        classNames="fade"
-        timeout={300}
-      >
-        <WcItem
-          ref={itemRef}
-          cityName={city.cityName}
-          dateTime={city.dateTime}
-          id={city.id}
-          onRemove={removeHandler}
-        />
-      </CSSTransition>
-    );
-  });
+  const tabClasses = `${styles["Worldclock__container"]} ${
+    isActive ? "active" : "disable"
+  }`;
 
   const content =
-    searchedCities.length > 0 ? (
-      <DataList>{searchedCities}</DataList>
+    cities.length > 0 ? (
+      <WcCityList
+        onRemove={removeCityHandler}
+        cities={cities}
+        isTabActive={isActive}
+      />
     ) : (
-      <EmptyContent text={`You don't have any search results yet.`} />
+      <EmptyContent text={WORLD_CLOCK_EMPTY_LIST} />
     );
-
-  const isShown = props.isActive;
-  const tabClasses = `${styles["Worldclock__container"]} ${
-    isShown ? "active" : "disable"
-  }`;
 
   return (
     <CSSTransition
-      in={isShown}
+      in={isActive}
       timeout={200}
       classNames="slide"
       nodeRef={tabRef}

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { ALARM, localeOptions } from "../../../helper/config";
+import { ALARM, LOCALE_OPTIONS } from "../../../constants/const";
 import { isTimeFormat12Hour } from "../../../helper/util";
 
 import ModalContext from "../../../store/modal-context";
@@ -15,7 +15,7 @@ const AlarmForm = (props) => {
   const [timePeriod, setTimePeriod] = useState("AM");
 
   const modalCtx = useContext(ModalContext);
-  const is12Hour = isTimeFormat12Hour(localeOptions.locale);
+  const is12Hour = isTimeFormat12Hour(LOCALE_OPTIONS.locale);
 
   const alarmHourInputHandler = (e) => {
     const max = is12Hour ? 12 : 24;
