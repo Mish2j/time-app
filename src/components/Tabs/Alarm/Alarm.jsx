@@ -10,6 +10,7 @@ import {
 import { formatDateTime } from "../../../helper/util";
 
 import ModalContext from "../../../store/modal-context";
+import TabContext from "../../../store/tab-context";
 
 import AlarmForm from "./AlarmForm";
 import AlarmItem from "./AlarmItem";
@@ -18,10 +19,13 @@ import DataList from "../../UI/DataList";
 
 import styles from "./Alarm.module.css";
 
-const Alarm = ({ isActive }) => {
+const Alarm = () => {
   const [alarms, setAlarms] = useState([]);
   const { openModal } = useContext(ModalContext);
   const tabRef = createRef(null);
+
+  const { activeTab } = useContext(TabContext);
+  const isActive = activeTab === ALARM;
 
   const removeAlarmHandler = (id) => {
     const filteredAlarms = alarms.filter((a) => a.id !== id);

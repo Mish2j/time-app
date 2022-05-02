@@ -1,16 +1,20 @@
-import { useState, createRef } from "react";
+import { useState, createRef, useContext } from "react";
+
+import TabContext from "../../../store/tab-context";
+
+import { WORLD_CLOCK_EMPTY_LIST, WORLD_CLOCK } from "../../../constants/const";
 
 import CSSTransition from "react-transition-group/CSSTransition";
-
-import { WORLD_CLOCK_EMPTY_LIST } from "../../../constants/const";
-
 import WcForm from "./WcForm";
 import EmptyContent from "../../UI/EmptyContent";
 import WcCityList from "./WcCityList";
 
 import styles from "./WorldClock.module.css";
 
-const WorldClock = ({ isActive }) => {
+const WorldClock = () => {
+  const { activeTab } = useContext(TabContext);
+  const isActive = activeTab === WORLD_CLOCK;
+
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const tabRef = createRef(null);

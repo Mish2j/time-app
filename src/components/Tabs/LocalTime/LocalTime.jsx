@@ -1,15 +1,18 @@
-import { useState, useEffect, createRef } from "react";
+import { useState, useContext, useEffect, createRef } from "react";
+
+import TabContext from "../../../store/tab-context";
 
 import CSSTransition from "react-transition-group/CSSTransition";
-
 import { formatDateTime } from "../../../helper/util";
-import { LOCALE_OPTIONS } from "../../../constants/const";
+import { LOCALE_OPTIONS, LOCAL_TIME } from "../../../constants/const";
 
 import LocalData from "./LocalData";
 
-const LocalTime = ({ isActive }) => {
+const LocalTime = () => {
   const [time, setTime] = useState(Date.now());
   const tabRef = createRef(null);
+  const { activeTab } = useContext(TabContext);
+  const isActive = activeTab === LOCAL_TIME;
 
   const { locale, timeOptions, dateOptions, timezoneOptions } = LOCALE_OPTIONS;
 

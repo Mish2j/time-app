@@ -1,6 +1,6 @@
 export const ALARM = "Alarm";
-export const WORLD_CLOCK = "WorldClock";
-export const LOCAL_TIME = "LocalTime";
+export const WORLD_CLOCK = "World Clock";
+export const LOCAL_TIME = "Local Time";
 export const TIMER = "Timer";
 export const STOPWATCH = "Stopwatch";
 
@@ -18,6 +18,7 @@ export const WORLD_CLOCK_SEARCH_ERROR =
   "The city you are looking for does not exist. Try another one.";
 export const WORLD_CLOCK_RESULT_ERROR =
   "The search result returned more than one city. Please try entering the full name of the city.";
+export const WORLD_CLOCK_NO_INPUT_ERROR = "Please enter a city name!";
 export const WORLD_CLOCK_EMPTY_LIST = "You don't have any search results yet.";
 
 export const STOPWATCH_EMPTY_LIST = "Click start to run the stopwatch.";

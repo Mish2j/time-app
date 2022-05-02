@@ -1,12 +1,16 @@
-import { createRef } from "react";
+import { createRef, useContext } from "react";
+
+import { TIMER } from "../../../constants/const";
+import TabContext from "../../../store/tab-context";
 
 import CSSTransition from "react-transition-group/CSSTransition";
-
 import TimerForm from "./TimerForm";
 
 import styles from "./Timer.module.css";
 
-const Timer = ({ isActive }) => {
+const Timer = () => {
+  const { activeTab } = useContext(TabContext);
+  const isActive = activeTab === TIMER;
   const tabRef = createRef(null);
 
   const tabClasses = `${styles["timer__container"]} ${

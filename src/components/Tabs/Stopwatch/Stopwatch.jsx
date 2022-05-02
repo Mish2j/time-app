@@ -1,8 +1,11 @@
-import { useReducer, useState, useEffect, createRef } from "react";
+import { useReducer, useState, useEffect, createRef, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import * as reducer from "../../../reducers/index";
 import { formatTime } from "../../../helper/util";
+import { STOPWATCH } from "../../../constants/const";
+
+import TabContext from "../../../store/tab-context";
 
 import SwTimer from "./SwTimer";
 import SwControl from "./SwControl";
@@ -12,7 +15,10 @@ import CSSTransition from "react-transition-group/CSSTransition";
 
 import styles from "./Stopwatch.module.css";
 
-const Stopwatch = ({ isActive }) => {
+const Stopwatch = () => {
+  const { activeTab } = useContext(TabContext);
+  const isActive = activeTab === STOPWATCH;
+
   const tabRef = createRef(null);
   const [laps, setLaps] = useState([]);
 

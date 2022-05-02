@@ -6,6 +6,7 @@ import {
   WORLD_CLOCK,
   WORLD_CLOCK_RESULT_ERROR,
   WORLD_CLOCK_SEARCH_ERROR,
+  WORLD_CLOCK_NO_INPUT_ERROR,
 } from "../../../constants/const";
 import { formatEnteredCityName, getJson } from "../../../helper/util";
 import ModalContext from "../../../store/modal-context";
@@ -37,10 +38,15 @@ const WcForm = ({ isLoading, worldClockData }) => {
     try {
       isLoading(true);
 
-      const timezonesData = await getJson(API_URL);
-
       const searchedCity = enteredCityRef.current.value;
+
+      if (searchedCity.trim().length === 0) {
+        throw new Error(WORLD_CLOCK_NO_INPUT_ERROR);
+      }
+
       const formattedCityName = formatEnteredCityName(searchedCity);
+
+      const timezonesData = await getJson(API_URL);
 
       const matchingCities = timezonesData.filter((cityName) =>
         cityName.includes(`${formattedCityName}`)
